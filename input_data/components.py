@@ -28,20 +28,22 @@ def specificHeatCapacity(d, d_iso, density, cp):
 
     return kappa
 
-
-numberDevices = {}
+# Define how many types of components are considered for each different 
+# component. 'numberDevices["opaque", "wall"] = 4' implies that 4 different
+# types of walls are available and the optimizer has to choose one of these.
+numberDevices = {} 
 numberDevices["opaque", "wall"] = 4
 numberDevices["opaque", "floor"] = 1
 numberDevices["opaque", "roof"] = 4
 numberDevices["window"] = 4
-# intWall and ceiling must have the same amoutn of components as wall. There is
+# intWall and ceiling must have the same amount of components as wall. There is
 # only one decision variable for these 3 components to prevent a coupling of 
 # massive internal construction and light weight outdoor components
 numberDevices["opaque", "intWall"] = numberDevices["opaque", "wall"]
 numberDevices["opaque", "ceiling"] = numberDevices["opaque", "wall"]
 numberDevices["opaque", "intFloor"] = numberDevices["opaque", "wall"]
 
-
+# Define properties of each type of component
 U = {}
 U_win = {}
 d = {}
@@ -81,7 +83,7 @@ for i in range(numberDevices["opaque", "roof"]):
 for i in range(numberDevices["opaque", "floor"]):
     R_si["opaque", "floor"][i] = 0.13 # m²K/W
 
-# ASHRAE Table 5.6 p.19
+# ASHRAE 140 : 2011, Table 5.6 p.19
 for i in range(numberDevices["window"]):
     R_se["window"][i] = 0.04 # m²K/W
     R_si["window"][i] = 0.1299 # m²K/W
@@ -238,7 +240,7 @@ t_life["window"][i] = 40. # years
 i = 1
 U_win["window"][i] = 1.90 # [W/K] # http://www.energiesparaktion.de/wai3/showcontent.asp?ThemaID=4803
 g_gl["window"][i] = 0.67
-inv["window"][i] = 60. # [€/m²] # Schaetzwert
+inv["window"][i] = 60. # [€/m²] # (approximation)
 t_life["window"][i] = 40. # years
 
 # EnEV 2016 conform
