@@ -7,7 +7,7 @@ Created on Wed Oct 07 17:25:45 2015
 import numpy as np
 directions = ("south", "west", "north", "east")
 
-#%% Geometry
+#%% Geometry (symmetric)
 A = {} # in m2
 A["opaque", "south"] = 42.25
 A["opaque", "west"] = 42.25
